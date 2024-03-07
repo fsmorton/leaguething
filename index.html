@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Random League Generator</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+    button {
+        margin: 10px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    #output {
+        display: none;
+    }
+
+    .fade-in {
+        animation: fadeIn 1s forwards;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+</style>
+</head>
+<body>
+    <h1>League Build Generator</h1>
+    <button onclick="displayRandomElements()">Johnny is a retard</button>
+    <p id="output"></p>
+
+    <script>
+        function displayRandomElements() {
+            const arrays = [
+                ["Aatrox", "Ahri", "Akali", "Alistar", "Amumu", "Anivia", "Annie", "Aphelios", "Ashe", "Aurelion Sol", "Azir", "Bard", "Blitzcrank", "Brand", "Braum", "Caitlyn", "Camille", "Cassiopeia", "Cho'Gath", "Corki", "Darius", "Diana", "Dr. Mundo", "Draven", "Ekko", "Elise", "Evelynn", "Ezreal", "Fiddlesticks", "Fiora", "Fizz", "Galio", "Gangplank", "Garen", "Gnar", "Gragas", "Graves", "Hecarim", "Heimerdinger", "Illaoi", "Irelia", "Ivern", "Janna", "Jarvan IV", "Jax", "Jayce", "Jhin", "Jinx", "Kai'Sa", "Kalista", "Karma", "Karthus", "Kassadin", "Katarina", "Kayle", "Kayn", "Kennen", "Kha'Zix", "Kindred", "Kled", "Kog'Maw", "LeBlanc", "Lee Sin", "Leona", "Lillia", "Lissandra", "Lucian", "Lulu", "Lux", "Malphite", "Malzahar", "Maokai", "Master Yi", "Miss Fortune", "Mordekaiser", "Morgana", "Nami", "Nasus", "Nautilus", "Neeko", "Nidalee", "Nocturne", "Nunu & Willump", "Olaf", "Orianna", "Ornn", "Pantheon", "Poppy", "Pyke", "Qiyana", "Quinn", "Rakan", "Rammus", "Rek'Sai", "Rell", "Renekton", "Rengar", "Riven", "Rumble", "Ryze", "Samira", "Sejuani", "Senna", "Seraphine", "Sett", "Shaco", "Shen", "Shyvana", "Singed", "Sion", "Sivir", "Skarner", "Sona", "Soraka", "Swain", "Sylas", "Syndra", "Tahm Kench", "Taliyah", "Talon", "Taric", "Teemo", "Thresh", "Tristana", "Trundle", "Tryndamere", "Twisted Fate", "Twitch", "Udyr", "Urgot", "Varus", "Vayne", "Veigar", "Vel'Koz", "Vi", "Viktor", "Vladimir", "Volibear", "Warwick", "Wukong", "Xayah", "Xerath", "Xin Zhao", "Yasuo", "Yone", "Yorick", "Yuumi", "Zac", "Zed", "Ziggs", "Zilean", "Zoe", "Zyra"],
+                ["Mid", "Bot", "Support", "Jungle", "Top"],
+                ["Domination", "Precision", "Sorcery", "Resolve", "Inspiration"],
+                ["Domination", "Precision", "Sorcery", "Resolve", "Inspiration"]
+            ];
+
+            const outputElement = document.getElementById('output');
+            const messages = [
+                "Your Champion: ",
+                "Your Lane: ",
+                "Primary Rune: ",
+                "Secondary Rune: "
+            ];
+            let outputString = '';
+
+            const copiedArrays = arrays.map(arr => [...arr]);
+
+            const randomIndex3 = Math.floor(Math.random() * copiedArrays[2].length);
+            let randomIndex4 = Math.floor(Math.random() * copiedArrays[3].length);
+
+            let primaryRuneIndex = randomIndex3;
+            let secondaryRuneIndex = randomIndex4;
+            while (primaryRuneIndex === secondaryRuneIndex) {
+                secondaryRuneIndex = Math.floor(Math.random() * copiedArrays[3].length);
+            }
+
+            for (let i = 0; i < copiedArrays.length; i++) {
+                let randomIndex;
+
+                if (i === 2) {
+                    randomIndex = randomIndex3;
+                } else if (i === 3) {
+                    randomIndex = secondaryRuneIndex;
+                } else {
+                    randomIndex = Math.floor(Math.random() * copiedArrays[i].length);
+                }
+
+                outputString += `${messages[i]} ${copiedArrays[i][randomIndex]}<br>`;
+
+                // Remove the selected element to ensure it doesn't repeat
+                copiedArrays[i].splice(randomIndex, 1);
+            }
+
+            outputElement.innerHTML = outputString;
+            outputElement.classList.add('fade-in');
+            outputElement.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
